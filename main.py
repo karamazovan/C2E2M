@@ -41,3 +41,7 @@ for rect in bar.patches:
 plt.xlim(0, 117)
 
 plt.show()
+
+# 이건 파이 차트를 위한 
+# plt.pie(df.loc['region A'], labels = df.columns, autopct = '%.d%%', colors = colors)
+# plt.show()
