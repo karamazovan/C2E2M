@@ -1,51 +1,43 @@
+import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
-# Sample data
-correct1 = [15, 20, 20, 19, 17, 18, 17, 19, 13, 12, 7, 17]
-wrong1 = [7, 2, 2, 3, 5, 4, 5, 3, 9, 10, 15, 5]
-correct2 = [14, 18, 20, 20, 18, 18, 17, 18, 14, 15, 7, 13]
-wrong2 = [8, 3, 2, 2, 4, 4, 5, 4, 8, 7, 9, 9]
-correct3 = [17, 19, 22, 20, 20, 15, 17, 17, 14, 15, 13, 13]
-wrong3 =[5, 3, 0, 2, 2, 7, 3, 5, 8, 7, 13, 9]
-colours = ['red', 'orange', 'yellow', 'green', 'skyblue', 'bright_blue', 'purple', 'lilac', 'steel', 'rose', 'deep_red', 'blue']
+dict_correct = {'correct' : [60, 77, 83, 81, 72, 65, 68, 69, 55, 55, 32, 53], 'incorrect' : [30, 13, 7, 9, 18, 25, 22, 21, 35, 35, 58, 36]}
 
-# Setting up the figure size for better visibility
-# Define figure size to accommodate all bars clearly
-fig, ax = plt.subplots(figsize=(20, 10))
+df = pd.DataFrame(dict_correct, index = ['red(C)', 'orange(G)', 'yellow(A)', 'green(D)', 'skyblue(E)', 'blue(B)', 'bright_blue(Gb)', 'purple(Db)', 'lilac(Ab)', 'steel(Eb)', 'rose(Bb)', 'deep_red(F)'])
+df
 
-# Define bar width and the number of groups
-bar_width = 0.15
-n_groups = len(colours)
+# 띠 그래프를 그리는 코드(사이즈, 투명도, 굵기 선언)
+bar = df.plot.barh(stacked=True, figsize=(15,7), alpha = 0.4, width = 0.4)
 
-# Calculate the total width for each group (correct + wrong) and the space between groups
-group_width = bar_width * 2
-space_between_groups = bar_width
+plt.show()
 
-# Set the positions of the bars
-index = np.arange(0, n_groups * (group_width + space_between_groups), group_width + space_between_groups)
+# 색 지정
+colours = ['blue', 'red']
 
-# Define colors for correct and wrong for visual distinction
-colors_correct = ['lightblue', 'lightgreen', 'lightcoral']
-colors_wrong = ['blue', 'green', 'red']
+# df[::-1] 로 역순서로 바꾸기
+bar = df[::-1].plot.barh(stacked=True, figsize=(15, 7), alpha=0.4, width=0.4, color=colours)
 
-# Plot the bars for each group
-for i in range(3):  # Assuming there are 3 'correct' and 3 'wrong' sets
-    correct = eval(f'correct{i+1}')
-    wrong = eval(f'wrong{i+1}')
-    ax.bar(index + i * bar_width, correct, bar_width, label=f'Correct {i+1}', color=colors_correct[i])
-    ax.bar(index + i * bar_width + bar_width, wrong, bar_width, label=f'Wrong {i+1}', color=colors_wrong[i])
+# 그래프 위에 숫자를 새기는 코드
+# 출처 : https://stackoverflow.com/questions/41296313/stacked-bar-chart-with-centered-labels
+for rect in bar.patches:
+    # 숫자가 위치할 좌표 탐색
+    height = rect.get_height()
+    width = rect.get_width()
+    x = rect.get_x()
+    y = rect.get_y()
 
-# Set the labels, titles, and ticks for the chart
-ax.set_xlabel('Colors', fontsize=14)
-ax.set_ylabel('Revenue', fontsize=14)
-ax.set_title('Revenue by Color and Correctness', fontsize=16)
-ax.set_xticks(index + group_width / 2)
-ax.set_xticklabels(colours)
+    # 라벨 텍스트 포맷팅 형태 지정
+    label_text = f'{width:.0f}'  # f'{height:.2f}' 처럼 소수점 자리 지정
 
-# Add a legend
-ax.legend()
+    # 숫자 각 칸의 가운데 정렬
+    label_x = x + width / 2
+    label_y = y + height / 2
 
-# Show the plot with a tight layout
-plt.tight_layout()
+    # 0보다 큰 경우, 사이즈 등 조건을 지정하여 text 새기기
+    if width > 0:
+        bar.text(label_x, label_y, label_text, ha='center', va='center', fontsize=10)
+
+# x축 범위 조정하여 범례 위치 수정
+plt.xlim(0, 117)
+
 plt.show()
