@@ -2,8 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-#a = [20, 25, 27, 25, 22, 22, 21, 23, 17, 15, 12, 20]
-#b = [10, 5, 3, 5, 8, 8, 9, 7, 13, 15, 18, 9]
+a = [20, 25, 27, 25, 22, 22, 21, 23, 17, 15, 12, 20]
+b = [10, 5, 3, 5, 8, 8, 9, 7, 13, 15, 18, 10]
 
 #a2 = [20, 25, 28, 28, 25, 24, 22, 24, 19, 20, 9, 17]
 #b2 = [10, 5, 2, 2, 5, 6, 8, 6, 11, 10, 21, 13]
@@ -11,12 +11,12 @@ import numpy as np
 #a3 = [20, 27, 28, 28, 25, 19, 25, 22, 19, 20, 11, 16]
 #b3 = [10, 3, 2, 2, 5, 11, 5, 8, 11, 10, 19, 14]
 
-at = [60, 77, 83, 81, 72, 65, 68, 69, 55, 55, 32, 53]
-bt = [30, 13, 7, 9, 18, 25, 22, 21, 35, 35, 58, 36]
+#at = [60, 77, 83, 81, 72, 65, 68, 69, 55, 55, 32, 53]
+#bt = [30, 13, 7, 9, 18, 25, 22, 21, 35, 35, 58, 36]
 
-colour = ['red(C)', 'orange(G)', 'yellow(A)', 'green(D)', 'skyblue(E)', 'blue(B)', 'bright_blue(Gb)', 'purple(Db)', 'lilac(Ab)', 'steel(Eb)', 'rose(Bb)', 'deep_red(F)']
+colour = ['red(C)', 'orange(G)', 'yellow(D)', 'green(A)', 'skyblue(E)', 'blue(B)', 'bright_blue(Gb)', 'purple(Db)', 'lilac(Ab)', 'steel(Eb)', 'rose(Bb)', 'deep_red(F)']
 
-df = pd.DataFrame({'correct': at, 'incorrect': bt}, index=colour)
+df = pd.DataFrame({'correct': a, 'incorrect': b}, index=colour)
 
 # Set figure size and bar width
 fig, ax = plt.subplots(figsize=(15, 8))
@@ -45,9 +45,10 @@ ax.set_xticks(index + bar_width / 2)
 ax.set_xticklabels(colour, fontsize=10, color='black', rotation=45, ha='right')
 
 # Set axes labels and legend
-ax.set_xlabel('Colour_Total', size=13)
+ax.set_xlabel('Colour First', size=13)
 ax.set_ylabel('Counts', size=13)
 ax.legend()
 
 plt.tight_layout()
+plt.savefig("plot.svg", format='svg')  # Saving the figure as an SVG file
 plt.show()

@@ -3,11 +3,11 @@ import matplotlib.pyplot as plt
 
 dict_correct = {'correct' : [60, 77, 83, 81, 72, 65, 68, 69, 55, 55, 32, 53], 'incorrect' : [30, 13, 7, 9, 18, 25, 22, 21, 35, 35, 58, 36]}
 
-df = pd.DataFrame(dict_correct, index = ['red(C)', 'orange(G)', 'yellow(A)', 'green(D)', 'skyblue(E)', 'blue(B)', 'bright_blue(Gb)', 'purple(Db)', 'lilac(Ab)', 'steel(Eb)', 'rose(Bb)', 'deep_red(F)'])
+df = pd.DataFrame(dict_correct, index = ['Red(C) - (255, 0, 0)', 'Orange(G) - (255, 128, 0)', 'Yellow(D) - (255, 255, 0)', 'Green(A) - (0, 255, 0)', 'Skyblue(E) - (195, 255, 255)', 'Blue(B) - (140, 200, 255)', 'Bright Blue(Gb) - (128, 139, 255)', 'Purple(Db) - (128, 0, 255)', 'Lilac(Ab) - (187, 117, 255)', 'Steel(Eb) - (183, 70, 139)', 'Rose(Bb) - (169, 103, 124)', 'Deep-Red(F) - (171, 0, 52)'])
 df
 
 # 띠 그래프를 그리는 코드(사이즈, 투명도, 굵기 선언)
-bar = df.plot.barh(stacked=True, figsize=(15,7), alpha = 0.4, width = 0.4)
+bar = df.plot.barh(stacked=True, figsize=(15,10), alpha = 0.4, width = 0.4)
 
 plt.show()
 
@@ -38,10 +38,11 @@ for rect in bar.patches:
         bar.text(label_x, label_y, label_text, ha='center', va='center', fontsize=10)
 
 # x축 범위 조정하여 범례 위치 수정
-plt.xlim(0, 117)
-
+#plt.xlim(0, 117)
+plt.tight_layout()
+plt.savefig("plot.svg", format='svg')  # Saving the figure as an SVG file
 plt.show()
 
-# 이건 파이 차트를 위한 
+# 이건 파이 차트를 위한
 # plt.pie(df.loc['region A'], labels = df.columns, autopct = '%.d%%', colors = colors)
 # plt.show()
